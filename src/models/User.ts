@@ -11,20 +11,20 @@ class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar')
+  @Column()
   name: string;
 
-  @Column('varchar')
+  @Column()
   email: string;
 
-  @Column('varchar')
+  @Column()
   password: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export default User;
