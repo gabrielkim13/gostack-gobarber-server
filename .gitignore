@@ -124,3 +124,6 @@ dist
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode
+
+tmp/*
+!tmp/.gitkeep
