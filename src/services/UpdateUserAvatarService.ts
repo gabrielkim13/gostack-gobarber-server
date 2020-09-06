@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
 
+import AppError from '../errors/AppError';
+
 import User from '../models/User';
 
 import uploadConfig from '../config/upload';
@@ -18,7 +20,7 @@ class UpdateUserAvatarService {
     const user = await usersRepository.findOne(user_id);
 
     if (!user) {
-      throw new Error('User does not exist.');
+      throw new AppError('User does not exist.');
     }
 
     if (user.avatar) {
