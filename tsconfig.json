@@ -18,6 +18,5 @@
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"]
     }
-  },
-  "exclude": ["**/*.spec.ts"]
+  }
 }
