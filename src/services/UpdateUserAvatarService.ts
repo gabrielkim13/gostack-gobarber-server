@@ -13,8 +13,13 @@ interface Request {
   avatarFilename: string;
 }
 
+type Response = Omit<User, 'password'>;
+
 class UpdateUserAvatarService {
-  public async execute({ user_id, avatarFilename }: Request): Promise<User> {
+  public async execute({
+    user_id,
+    avatarFilename,
+  }: Request): Promise<Response> {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne(user_id);
@@ -34,7 +39,9 @@ class UpdateUserAvatarService {
 
     await usersRepository.save(user);
 
-    return user;
+    const { password: _, ...userInfo } = user;
+
+    return userInfo;
   }
 }
 

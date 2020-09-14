@@ -17,8 +17,6 @@ usersRouter.post('/', async (request, response) => {
 
   const user = await createUserService.execute({ name, email, password });
 
-  delete user.password;
-
   return response.status(201).json(user);
 });
 
@@ -33,8 +31,6 @@ usersRouter.patch(
       user_id: request.user.id,
       avatarFilename: request.file.filename,
     });
-
-    delete user.password;
 
     return response.json(user);
   },

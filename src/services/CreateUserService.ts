@@ -11,8 +11,10 @@ interface Request {
   password: string;
 }
 
+type Response = Omit<User, 'password'>;
+
 class CreateUserService {
-  public async execute({ name, email, password }: Request): Promise<User> {
+  public async execute({ name, email, password }: Request): Promise<Response> {
     const usersRepository = getRepository(User);
 
     const checkUserExists = await usersRepository.findOne({ where: { email } });
@@ -31,7 +33,9 @@ class CreateUserService {
 
     await usersRepository.save(user);
 
-    return user;
+    const { password: _, ...userInfo } = user;
+
+    return userInfo;
   }
 }
 

@@ -13,7 +13,7 @@ interface Request {
 }
 
 interface Response {
-  user: User;
+  user: Omit<User, 'password'>;
   token: string;
 }
 
@@ -40,7 +40,9 @@ class AuthenticateUserService {
       expiresIn,
     });
 
-    return { user, token };
+    const { password: _, ...userInfo } = user;
+
+    return { user: userInfo, token };
   }
 }
 
