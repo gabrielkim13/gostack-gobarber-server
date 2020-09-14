@@ -11,12 +11,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "typeRoots": ["./src/@types"],
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
     "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"]
     }
-  }
+  },
+  "exclude": ["**/*.spec.ts"]
 }
