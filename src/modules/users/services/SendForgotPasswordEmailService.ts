@@ -13,10 +13,12 @@ interface IRequest {
 @injectable()
 class SendForgotPasswordEmailService {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRepository,
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokensRepository,
-    @inject('MailProvider') private mailProvider: IMailProvider,
+    @inject('MailProvider')
+    private mailProvider: IMailProvider,
   ) {}
 
   public async execute({ email }: IRequest): Promise<void> {
@@ -26,9 +28,19 @@ class SendForgotPasswordEmailService {
       throw new AppError('User does not exist');
     }
 
-    await this.userTokensRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
 
-    this.mailProvider.sendMail(email, 'Oi.');
+    await this.mailProvider.sendMail({
+      to: { name: user.name, email: user.email },
+      subject: '[GoBarber] Recuperação de senha',
+      templateData: {
+        template: 'Olá {{name}}: {{token}}',
+        variables: {
+          name: user.name,
+          token,
+        },
+      },
+    });
   }
 }
 

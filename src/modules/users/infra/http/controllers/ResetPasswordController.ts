@@ -11,6 +11,6 @@ export default class ResetPasswordController {
 
     await resetPasswordService.execute({ token, password });
 
-    return response.status(204);
+    return response.status(204).send();
   }
 }
