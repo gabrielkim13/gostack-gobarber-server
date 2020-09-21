@@ -8,7 +8,7 @@ import UpdateUserAvatarService from './UpdateUserAvatarService';
 
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 
-describe('CreateUserService', () => {
+describe('UpdateUserAvatarService', () => {
   it('should be able to add an avatar to an "avatarless" user ', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeStorageProvider = new FakeStorageProvider();
@@ -76,7 +76,7 @@ describe('CreateUserService', () => {
       avatarFilename: 'avatar2.jpg',
     });
 
-    expect(deleteFile).toHaveBeenCalledWith('avatar1.jpg');
-    expect(updatedUser.avatar).toHaveBeenCalledWith('avatar2.jpg');
+    await expect(deleteFile).toHaveBeenCalledWith('avatar1.jpg');
+    expect(updatedUser.avatar).toBe('avatar2.jpg');
   });
 });
