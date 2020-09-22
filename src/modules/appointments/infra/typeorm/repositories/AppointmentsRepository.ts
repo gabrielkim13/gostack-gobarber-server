@@ -51,7 +51,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
         provider_id,
         date: Raw(
           dateColumnName =>
-            `to_char(${dateColumnName}, 'MM-YYYY') = ${twoDigitMonth}-${year}`,
+            `to_char(${dateColumnName}, 'MM-YYYY') = '${twoDigitMonth}-${year}'`,
         ),
       },
     });
@@ -73,7 +73,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
         provider_id,
         date: Raw(
           dateColumnName =>
-            `to_char(${dateColumnName}, 'DD-MM-YYYY') = ${twoDigitDay}-${twoDigitMonth}-${year}`,
+            `to_char(${dateColumnName}, 'DD-MM-YYYY') = '${twoDigitDay}-${twoDigitMonth}-${year}'`,
         ),
       },
     });
