@@ -13,6 +13,9 @@ import SESMailProvider from '@shared/providers/implementations/SESMailProvider';
 import IMailTemplateProvider from '@shared/providers/models/IMailTemplateProvider';
 import HandlebarsMailTemplateProvider from '@shared/providers/implementations/HandlebarsMailTemplateProvider';
 
+import ICacheProvider from '@shared/providers/models/ICacheProvider';
+import RedisCacheProvider from '@shared/providers/implementations/RedisCacheProvider';
+
 const storageProviders = {
   disk: DiskStorageProvider,
   s3: S3StorageProvider,
@@ -36,4 +39,9 @@ const mailProviders = {
 container.registerInstance<IMailProvider>(
   'MailProvider',
   mailProviders[mailConfig.driver],
+);
+
+container.registerSingleton<ICacheProvider>(
+  'CacheProvider',
+  RedisCacheProvider,
 );
