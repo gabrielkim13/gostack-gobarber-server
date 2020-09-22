@@ -14,8 +14,8 @@ const mailConfig = {
 
   defaults: {
     from: {
-      name: 'Gabriel Kim',
-      email: 'gabrielkim13@gmail.com',
+      name: 'Contato',
+      email: 'contato@gkim.app',
     },
   },
 } as IMailConfig;
