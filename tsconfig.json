@@ -11,6 +11,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
+    "allowJs": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "baseUrl": "./src",
     "paths": {
