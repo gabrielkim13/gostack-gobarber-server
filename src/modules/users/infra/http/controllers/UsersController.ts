@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 
@@ -11,6 +12,6 @@ export default class UsersController {
 
     const user = await createUserService.execute({ name, email, password });
 
-    return response.status(201).json(user);
+    return response.status(201).json(classToClass(user));
   }
 }

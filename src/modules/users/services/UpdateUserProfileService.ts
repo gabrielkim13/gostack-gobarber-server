@@ -15,8 +15,6 @@ interface IRequest {
   newPassword: string;
 }
 
-type IResponse = Omit<User, 'password'>;
-
 @injectable()
 class UpdateUserProfileService {
   constructor(
@@ -30,7 +28,7 @@ class UpdateUserProfileService {
     email,
     oldPassword,
     newPassword,
-  }: IRequest): Promise<IResponse> {
+  }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -62,9 +60,7 @@ class UpdateUserProfileService {
 
     await this.usersRepository.save(user);
 
-    const { password: _, ...userInfo } = user;
-
-    return userInfo;
+    return user;
   }
 }
 

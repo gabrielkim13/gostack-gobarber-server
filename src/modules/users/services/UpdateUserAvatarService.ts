@@ -12,8 +12,6 @@ interface IRequest {
   avatarFilename: string;
 }
 
-type IResponse = Omit<User, 'password'>;
-
 @injectable()
 class UpdateUserAvatarService {
   constructor(
@@ -21,10 +19,7 @@ class UpdateUserAvatarService {
     @inject('StorageProvider') private storageProvider: IStorageProvider,
   ) {}
 
-  public async execute({
-    user_id,
-    avatarFilename,
-  }: IRequest): Promise<IResponse> {
+  public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -41,9 +36,7 @@ class UpdateUserAvatarService {
 
     await this.usersRepository.save(user);
 
-    const { password: _, ...userInfo } = user;
-
-    return userInfo;
+    return user;
   }
 }
 

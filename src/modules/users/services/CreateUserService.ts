@@ -13,8 +13,6 @@ interface IRequest {
   password: string;
 }
 
-type IResponse = Omit<User, 'password'>;
-
 @injectable()
 class CreateUserService {
   constructor(
@@ -22,11 +20,7 @@ class CreateUserService {
     @inject('HashProvider') private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({
-    name,
-    email,
-    password,
-  }: IRequest): Promise<IResponse> {
+  public async execute({ name, email, password }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {
@@ -41,9 +35,7 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    const { password: _, ...userInfo } = user;
-
-    return userInfo;
+    return user;
   }
 }
 

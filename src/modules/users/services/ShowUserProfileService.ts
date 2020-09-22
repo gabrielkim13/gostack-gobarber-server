@@ -9,24 +9,20 @@ interface IRequest {
   user_id: string;
 }
 
-type IResponse = Omit<User, 'password'>;
-
 @injectable()
 class ShowUserProfileService {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ user_id }: IRequest): Promise<IResponse> {
+  public async execute({ user_id }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User does not exist.');
     }
 
-    const { password: _, ...userInfo } = user;
-
-    return userInfo;
+    return user;
   }
 }
 
