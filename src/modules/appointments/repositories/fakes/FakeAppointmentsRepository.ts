@@ -11,12 +11,22 @@ import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInD
 class AppointmentsRepository implements IAppointmentsRepository {
   private appointments: Appointment[] = [];
 
-  public async create(
-    appointmentData: ICreateAppointmentDTO,
-  ): Promise<Appointment> {
+  public async create({
+    provider_id,
+    user_id,
+    date,
+  }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = new Appointment();
 
-    Object.assign(appointment, { id: uuid() }, appointmentData);
+    Object.assign(
+      appointment,
+      { id: uuid() },
+      {
+        provider_id,
+        user_id,
+        date,
+      },
+    );
 
     this.appointments.push(appointment);
 
