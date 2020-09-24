@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 
 import mailConfig from '@config/mail';
+import uploadConfig from '@config/upload';
 
 import IStorageProvider from '@shared/providers/models/IStorageProvider';
 import DiskStorageProvider from '@shared/providers/implementations/DiskStorageProvider';
@@ -23,7 +24,7 @@ const storageProviders = {
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  storageProviders.s3,
+  storageProviders[uploadConfig.driver],
 );
 
 container.registerSingleton<IMailTemplateProvider>(
