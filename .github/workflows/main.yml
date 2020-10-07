@@ -36,7 +36,7 @@ jobs:
           source: ".,!node_modules"
           target: "~/app/gostack-gobarber-server"
         
-      - name: Install dependencies on Digital Ocean
+      - name: Install dependencies, run migrations and restart the app on Digital Ocean
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -46,23 +46,5 @@ jobs:
           script: |
             cd ~/app/gostack-gobarber-server 
             yarn
-            
-      - name: Run database migrations on Digital Ocean
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ~/app/gostack-gobarber-server 
             npx typeorm migration:run
-            
-      - name: Restart application on Digital Ocean
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: pm2 restart gobarber
+            pm2 restart gobarber
